@@ -18,6 +18,9 @@ int main()
 	
 	vector<Vector2f> vertices;
 	vector<Vector2f> points;
+	Font font;
+	font.loadFromFile("ComicSans.ttf");
+	Text text("Chaos Game!!\nClick to add vertices", font, 35);
 
 	while (window.isOpen())
 	{
@@ -50,6 +53,7 @@ int main()
 			    {
 				///fourth click
 				///push back to points vector
+					points.push_back(Vector2f(event.mouseButton.x, event.mouseButton.y));
 			    }
 			}
 		    }
@@ -70,6 +74,10 @@ int main()
 		    ///select random vertex
 		    ///calculate midpoint between random vertex and the last point in the vector
 		    ///push back the newly generated coord.
+			int randInt = rand() % vertices.size();
+			float midX = (points.back().x + vertices[randInt].x) / 2;
+			float midY = (points.back().y + vertices[randInt].y) / 2;
+			points.push_back(Vector2f(midX, midY));
 		}
 	
 		/*
@@ -78,12 +86,23 @@ int main()
 		****************************************
 		*/
 		window.clear();
+		text.setColor(Color::Green);
+		window.draw(text);
 		for(int i = 0; i < vertices.size(); i++)
 		{
 		    RectangleShape rect(Vector2f(10,10));
 		    rect.setPosition(Vector2f(vertices[i].x, vertices[i].y));
 		    rect.setFillColor(Color::Blue);
 		    window.draw(rect);
+		}
+
+		for (int i = 0; i < points.size(); i++)
+		{
+			Color rainbow(rand() % 256, rand() % 256, rand() % 256);
+			RectangleShape rect(Vector2f(5, 5));
+			rect.setPosition(Vector2f(points[i].x, points[i].y));
+			rect.setFillColor(rainbow);
+			window.draw(rect);
 		}
 		window.display();
 	}
