@@ -18,9 +18,6 @@ int main()
 	
 	vector<Vector2f> vertices;
 	vector<Vector2f> points;
-	Font font;
-	font.loadFromFile("ComicSans.ttf");
-	Text text("Chaos Game!!\nClick to add vertices", font, 35);
 
 	while (window.isOpen())
 	{
@@ -30,6 +27,10 @@ int main()
 		****************************************
 		*/
 		Event event;
+		Font font;
+		font.loadFromFile("ComicSansMS.ttf");
+		Text text("Chaos game!!!\nclick to add vertices", font, 35);
+		text.setColor(Color::Green);
 		while (window.pollEvent(event))
 		{
 		    if (event.type == Event::Closed)
@@ -86,7 +87,6 @@ int main()
 		****************************************
 		*/
 		window.clear();
-		text.setColor(Color::Green);
 		window.draw(text);
 		for(int i = 0; i < vertices.size(); i++)
 		{
